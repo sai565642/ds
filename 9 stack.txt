@@ -1,0 +1,78 @@
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <string.h> 
+#define MAX 100 
+ 
+Int stack[MAX]; 
+Int top= -1; 
+//function to check if stack is full 
+Int isfull() 
+{ 
+    Return top==MAX-1; 
+} 
+ 
+//function to checkif stack is empty 
+Int isempty() 
+{ 
+    Return top== -1; 
+} 
+ 
+//push operation 
+Void push(int value) 
+{ 
+    If (isfull()) 
+    { 
+        Printf(“\n stack overflow! Cannot push %d \n”,value); 
+        } 
+        Else 
+        { 
+            Top=top+1; 
+            Stack[top]=value; 
+            Printf(“%d pushed onto stack \n”,value); 
+        } 
+} 
+Int pop() 
+{ 
+    If (isempty()) 
+    { 
+        Printf(“\n stack empty cannot pop \n”); 
+    } 
+    Else 
+    { 
+        Int val=stack[top]; 
+        Top=top-1; 
+        Printf(“popped element is %d \n”,val); 
+        Return val; 
+    } 
+} 
+Void display() 
+{ 
+    If (isempty()) 
+    { 
+        Printf(“\n stack is empty”); 
+    } 
+    Else 
+    { 
+        Printf(“\n stack contents(top to bottom)”); 
+        For(int i=top;i>=0;i--) 
+        { 
+            Printf(“%d \n”,stack[i]); 
+        } 
+    } 
+}   
+ 
+Void main() 
+{ 
+    Pop(); 
+    Push(10); 
+    Display(); 
+    Push(10); 
+    Display(); 
+    Pop(); 
+    Display(); 
+    Pop(); 
+    Display(); 
+    Pop(); 
+} 
+ 
+ 
