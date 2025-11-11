@@ -3,76 +3,76 @@
 #include <string.h> 
 #define MAX 100 
  
-Int stack[MAX]; 
-Int top= -1; 
+int stack[MAX]; 
+int top= -1; 
 //function to check if stack is full 
-Int isfull() 
+int isfull() 
 { 
-    Return top==MAX-1; 
+    return top==MAX-1; 
 } 
  
 //function to checkif stack is empty 
-Int isempty() 
+int isempty() 
 { 
-    Return top== -1; 
+    return top== -1; 
 } 
  
 //push operation 
-Void push(int value) 
+void push(int value) 
 { 
-    If (isfull()) 
+    if (isfull()) 
     { 
-        Printf(“\n stack overflow! Cannot push %d \n”,value); 
+        printf("\n stack overflow! Cannot push %d \n",value);
         } 
-        Else 
+        else 
         { 
-            Top=top+1; 
-            Stack[top]=value; 
-            Printf(“%d pushed onto stack \n”,value); 
+            top=top+1; 
+            stack[top]=value; 
+            printf("%d pushed onto stack \n",value); 
         } 
 } 
-Int pop() 
+int pop() 
 { 
-    If (isempty()) 
+    if (isempty()) 
     { 
-        Printf(“\n stack empty cannot pop \n”); 
+        printf("\n stack empty cannot pop \n"); 
     } 
-    Else 
+    else 
     { 
-        Int val=stack[top]; 
-        Top=top-1; 
-        Printf(“popped element is %d \n”,val); 
-        Return val; 
+        int val=stack[top]; 
+        top=top-1; 
+        printf("popped element is %d \n",val); 
+        return val; 
     } 
 } 
-Void display() 
+void display() 
 { 
-    If (isempty()) 
+    if (isempty()) 
     { 
-        Printf(“\n stack is empty”); 
+        printf("\n stack is empty"); 
     } 
-    Else 
+    else 
     { 
-        Printf(“\n stack contents(top to bottom)”); 
-        For(int i=top;i>=0;i--) 
+        printf("\n stack contents(top to bottom)"); 
+        for(int i=top;i>=0;i--) 
         { 
-            Printf(“%d \n”,stack[i]); 
+            printf("%d \n",stack[i]); 
         } 
     } 
 }   
  
-Void main() 
+void main() 
 { 
-    Pop(); 
-    Push(10); 
-    Display(); 
-    Push(10); 
-    Display(); 
-    Pop(); 
-    Display(); 
-    Pop(); 
-    Display(); 
-    Pop(); 
+    pop(); 
+    push(10); 
+    display(); 
+    push(10); 
+    display(); 
+    pop(); 
+    display(); 
+    pop(); 
+    display(); 
+    pop(); 
 } 
  
  
