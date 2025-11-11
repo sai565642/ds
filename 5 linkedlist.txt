@@ -1,0 +1,415 @@
+#include <stdio.h>
+#include<stdlib.h>
+
+//Define structure for node 
+struct node
+{
+  int data;
+  struct node *next;
+};
+
+//Head of the list 
+struct node* head=NULL;
+
+//function to create new node
+struct node* createnode (int data)
+{
+  struct node* newnode=(struct node*)malloc(sizeof(struct node));
+  newnode->data=data;
+  newnode->next=NULL;
+  return newnode;
+}
+
+//display the list
+void display()
+{
+  if(head==NULL)
+  {
+    printf("\nList is empty");
+    return;
+  }
+  struct node* temp=head;
+  printf("\nLinked list\t");
+  while(temp!=NULL)
+  {
+    printf("%d->",temp->data);
+    temp=temp->next;
+  }
+  printf("NULL\n");
+}
+
+//insert at begining
+void insertatbegining(int data)
+{
+  struct node* newnode=createnode(data);
+  newnode->next=head;
+  head=newnode;
+}
+
+//insert at end
+void insertatend(int data)
+{
+  struct node* newnode=createnode(data);
+  if(head==NULL)
+  {
+      head=newnode;
+      return;
+  }
+  struct node* temp=head;
+  while(temp->next!=NULL)
+  {
+      temp=temp->next;
+  }
+  temp->next=newnode;
+}
+
+//insert at any position
+void insertatposition(int data,int position)
+{
+  if(position<1)
+  {
+    printf("\nInvalid position");
+    return;
+  }
+  if(position==1)
+  {
+    insertatbegining(data);
+    return;
+  }
+  struct node* newnode=createnode(data);
+  struct node* temp=head;
+  for(int i=0;i<position-1 && temp!=NULL; i++)
+  {
+    temp=temp->next;
+  }
+  if(temp==NULL)
+  {
+    printf("\nPosition out of range");
+    return;
+  }
+  newnode->next=temp->next;
+  temp->next=newnode;
+}
+
+//to search element
+void search(int key)
+{
+  struct node* temp=head;
+  int position=1;
+  while(temp!=NULL)
+  {
+    if(temp->data==key)
+    {
+      printf("\nElement %d found at position %d\n",key,position);
+    
+      return;
+    }
+    temp=temp->next;
+    position++;
+  }
+  printf("\nElement %d not found",key);
+}
+
+//to delete at begining
+void deleteatbegining()
+{
+  if(head==NULL)
+  {
+    printf("\nList is empty");
+    return;
+  }
+  struct node* temp=head;
+  head=head->next;
+  free(temp); //release memory
+}
+
+//delete an element at end
+void deleteatend()
+{
+  //empty list head
+  if(head==NULL)
+  {
+    printf("\nlist is empty");
+    return;
+  }
+  //having only head->node1
+  if(head->next==NULL)
+  {
+    free(head);
+    head=NULL;
+    return;
+  }
+  //having head->node1->node2->node3
+  struct node* temp=head;
+  while(temp->next->next!=NULL)
+  {
+    temp=temp->next;
+  }
+  free(temp->next);
+  temp->next=NULL;
+}
+
+//delete an element at any position
+void deleteatposition(int position)
+{
+  if(position<1 || head==NULL)
+  {
+    printf("\nInvalid position or empty list");
+    return;
+  }
+  if(position==1)
+  {
+    deleteatbegining();
+    return;
+  }
+  struct node* temp=head;
+  for(int i=1;i<position-1 && temp->next!=NULL;i++)
+  {
+    temp=temp->next;
+  }
+  if(temp->next==NULL)
+  {
+    printf("\nPosition out of range");
+    return;
+  }
+  struct node* todelete=temp->next;
+  temp->next=todelete->next;
+  free(todelete);
+}
+
+void main()
+{
+      int choice;
+    do{
+        printf("\n===Singly liked list===\n");
+        printf("1.insert at begining\n");
+        printf("2.insert at position\n");
+        printf("3.insert at end\n");
+        printf("4.delete at begining\n");
+        printf("5.delete at position\n");
+        printf("6.delete at end\n");
+        printf("7.search\n");
+        printf("8.Display linked list \n");
+        printf("9.exit\n");
+        printf("enter your choice:");
+        scanf("%d",&choice);
+        getchar();//newline
+        int a,b;
+        switch(choice)
+        {
+            case 1:
+                printf("\nEnter the inserting number:");
+                scanf("%d",&a);
+                insertatbegining(a);
+                break;
+            case 2:
+                printf("\nEnter the inserting number:");
+                scanf("%d",&a);
+                printf("\nEnter the position of inserting number:");
+                scanf("%d",&b);
+                insertatposition(a,b);
+                break;
+            case 3:
+                printf("\nEnter the inserting number:");
+                scanf("%d",&a);
+                insertatend(a);
+                break;
+            case 4:
+                printf("\nEnter the deleating number:");
+                scanf("%d",&a);
+                deleteatbegining(a);
+                break;
+            case 5:
+                printf("\nEnter the deleting number:");
+                scanf("%d",&a);
+
+                deleteatposition(a);
+                break;
+            case 6:
+                printf("\nEnter the deleating number:");
+                scanf("%d",&a);
+                deleteatend(a);
+                break;
+            case 7:
+                printf("\nEnter the searching number:");
+                scanf("%d",&a);
+                search(a);
+            case 8:
+                display();
+            case 9:
+                printf("\n----exit----\n");
+        }
+    }while(choice!=9);
+}
+
+
+
+OUTPUT:
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:1
+
+Enter the inserting number:100
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:1
+
+Enter the inserting number:90
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:2
+
+Enter the inserting number:95
+
+Enter the position of inserting number:2
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:3
+
+Enter the inserting number:101
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:
+8
+
+Linked list	90->100->95->101->NULL
+
+----exit----
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:7
+
+Enter the searching number:100
+
+Element 100 found at position 2
+
+Linked list	90->100->95->101->NULL
+
+----exit----
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:4
+
+Enter the deleating number:90
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:5
+
+Enter the deleting number:90
+
+Position out of range
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:6
+
+Enter the deleating number:101
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:8
+
+Linked list	100->95->NULL
+
+----exit----
+
+===Singly liked list===
+1.insert at begining
+2.insert at position
+3.insert at end
+4.delete at begining
+5.delete at position
+6.delete at end
+7.search
+8.Display linked list 
+9.exit
+enter your choice:9
+
+----exit----

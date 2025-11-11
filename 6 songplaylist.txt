@@ -1,0 +1,223 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define MAX_NAME_LEN 100
+typedef struct song
+{
+  char name[MAX_NAME_LEN];
+  float duration;
+  struct song* next;
+  struct song* prev;
+}song;
+ song *head=NULL; //Head of playlist
+ song *current=NULL; //pointer to current playlist song
+//function to create new song node 
+ song *createsong(char *name,float duration)
+{
+  song *newsong=(song *)malloc(sizeof(song));
+  strcpy(newsong->name,name);
+  newsong->duration=duration;
+  newsong->next=NULL;
+  newsong->prev=NULL;
+  return newsong;
+}
+//a) add song in playlist
+void addsong(char *name,float duration)
+{
+  song *newsong=createsong(name,duration);
+  if(head==NULL)
+  {
+    head=newsong;
+    newsong->next=head;
+    newsong->prev=head;
+    current=head;
+  }
+  else
+  {
+    song *tail=head->prev;
+    tail->next=newsong;
+    newsong->prev=tail;
+    newsong->next=head;
+    head->prev=newsong;
+  }
+  printf("Song '\%s\' added to the playlist\n",name);
+}
+//b) play next song
+void playnext()
+{
+    if(current==NULL)
+    {
+        printf("Playlist is empty.\n");
+        return;
+    }
+    current=current->next;
+    printf("Now playing: %s (%.2f mins) \n",current->name,current->duration);
+}
+//c) play previos song
+void playprevious()
+{
+    if(current==NULL)
+    {
+        printf("Playlist is empty.\n");
+        return;
+    }
+    current=current->prev;
+    printf("Now playing: %s (%.3f mins) \n",current->name,current->duration);
+}
+void displayplaylist()
+{
+  if(head==NULL)
+  {
+    printf("\nPlaylist is empty\n");
+    return;
+  }
+  song *temp=head;
+  printf("\n-----Playlist-----\n");
+  int i=1;
+  do{
+    printf("%d. %s (%.3f mins) %s\n",i,temp->name,temp->duration,(temp==current)?"<--now playing":" ");
+    temp=temp->next;
+    i++;
+  }while(temp!=head);
+}
+//free all alloted playlist
+void freeplaylist()
+{
+  if(head==NULL) return;
+  song *temp = head;
+  do{
+    song *next = temp->next;
+    free(temp);
+    temp=next;
+  }while(temp!=head);
+  {
+    head = NULL;
+    current = NULL;
+  }
+}
+void main()
+{
+  int choice;
+  char name[MAX_NAME_LEN];
+  float duration;
+  do
+  {
+    printf("\n===Music playlist menu===\n");
+    printf("1.Add new song\n");
+    printf("2.play next song\n");
+    printf("3.play previous song\n");
+    printf("4.Display playlist\n");
+    printf("5.exit\n");
+    printf("enter your choice:");
+    scanf("%d",&choice);
+    getchar();//newline
+    
+    switch(choice)
+    {
+      case 1:
+        printf("\nEnter song name: ");
+        fgets(name, MAX_NAME_LEN, stdin);
+        name[strcspn(name, "\n")] = 0; // remove trailing newline
+        printf("Enter duration(in minutes):");
+        scanf("%f",&duration);
+        getchar();
+        addsong(name,duration);
+        break;
+ 
+      case 2:
+        playnext();
+        break;
+      case 3:
+        playprevious();
+        break;
+      case 4:
+        displayplaylist();
+        break;
+      case 5:
+        printf("Exiting playlist:-----\n");
+        freeplaylist();
+        break;
+        default:
+        printf("Invalid choice! Try Again\n");
+    }
+  }while(choice!=5);
+}
+
+Output:-
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:1
+
+Enter song name: sur niragas ho
+Enter duration(in minutes):25.33
+Song 'sur niragas ho' added to the playlist
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:1
+
+Enter song name: keshava madhava
+Enter duration(in minutes):34.98
+Song 'keshava madhava' added to the playlist
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:1
+
+Enter song name: kesariya
+Enter duration(in minutes):21.00
+Song 'kesariya' added to the playlist
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:2
+Now playing: keshava madhava (34.98 mins) 
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:3
+Now playing: sur niragas ho (25.330 mins) 
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:4
+
+-----Playlist-----
+1. sur niragas ho (25.330 mins) <--now playing
+2. keshava madhava (34.980 mins)  
+3. kesariya (21.000 mins)  
+
+===Music playlist menu===
+1.Add new song
+2.play next song
+3.play previous song
+4.Display playlist
+5.exit
+enter your choice:5
+Exiting playlist:-----
+

@@ -1,0 +1,43 @@
+#include <stdio.h>
+//function to swap two elements
+void swap(float *a, float *b)
+{
+    float temp=*a;
+    *a = *b;
+    *b = temp;
+}
+//partition function to place pivot at correct position
+int partision(float arr[], int low, int high)
+{
+    float pivot = arr[high];
+    int i = (low-1);
+    for(int j=low; j<=high-1; j++)
+    {
+        if(arr[j]<pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+    swap(&arr[i+1],&arr[high]);
+    return(i+1);
+}
+void quicksort(float arr[], int low, int high)
+{
+    if (low<high)
+    {
+        int pi = partision(arr,low,high);
+        quicksort(arr,low,pi-1);
+        quicksort(arr, pi+1, high);
+    }
+}
+void main()
+{
+    float arr[]={10.5, 9.5, 8.6, 7.4, 66.0};
+    quicksort(arr,0,4);
+    printf("\n Sorted array:\n");
+    for (int i=0; i<5; i++)
+    {
+        printf("\n %f",arr[i]);
+    }
+}

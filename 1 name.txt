@@ -1,0 +1,37 @@
+
+#include<string.h>
+#include<stdio.h>
+void main()
+{
+    char name[30];
+    int length;
+    printf("\n Enter your name:");
+    scanf("%s",name);
+    //display name and lengh of name
+    printf("\n your name is:%s",name);
+    length=strlen(name);
+    printf("\n length of your name:%d",length);
+    int age,year;
+    printf("\n Enter your age:");
+    scanf("%d",& age);
+    printf("\n Enter year");
+    scanf("%d", & year);
+    age =age+(year-2025);
+    printf("\n your age in %d year will be %d", year,age);
+}
+
+
+
+------------------------------------ OUTPUT-------------------------------------
+
+Enter your name:Sanika
+
+ your name is:Sanika
+ length of your name:6
+ Enter your age:19
+
+ Enter year2030
+
+ your age in 2030 year will be 24
+
+=== Code Exited With Errors ===
