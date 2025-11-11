@@ -30,7 +30,7 @@ int main(){
         printf("\n discount applied:₹%.2f",discount);
     }
     else{
-        printf("\n no discount applied");
+        printf("\n no discount applied, discount will be applied above purchase of 1000");
     }
     finalamount=total-discount;
     printf("\n final bill amount:₹%.2f\n",finalamount);
